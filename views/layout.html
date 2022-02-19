@@ -47,6 +47,11 @@
 					alert(new URL(location.href).searchParams.get('loginError'));
 				}
 			};
+			window.onload = () => {
+				if (new URL(location.href).searchParams.get('authError')) {
+					alert(new URL(location.href).searchParams.get('authError'));
+				}
+			};
 		</script>
 		{% block script %}
 		{% endblock %}
