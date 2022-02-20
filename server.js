@@ -6,7 +6,6 @@ const session=require('express-session');
 const passport=require('passport');
 const nunjucks=require('nunjucks');
 const dotenv=require('dotenv');
-const sequelize = require('sequelize');
 
 dotenv.config();
 
@@ -41,13 +40,17 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
-app.use(express.urlencoded({extended:False}));
+app.use(express.urlencoded({extended:false}));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
 //app.use Router
+
+app.use('/', indexRouter);
+app.use('/auth', authRouter);
+app.use('/admin', adminRouter);
 
 app.use((req, res, next)=>{
     const error=new Error(`${req.method} ${req.url} router is not exist`);

@@ -18,6 +18,7 @@ module.exports=class extends Sequelize.Model{
             auth:{
                 type:Sequelize.STRING(10),
                 allowNull:false,
+                defaultValue:"user",
             }
         },{
             sequelize,
