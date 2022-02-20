@@ -7,12 +7,14 @@
 <table>
     {% for post in posts %}
     <tr>
-        <td><img src="/img/{{post.image}}"></td>
+        <td><a href="/photopost/{{post.id}}"><img src="/img/{{post.image}}"></a></td>
     </tr>
     <tr>
         <td>{{post.title}}</td>
     </tr>
     {% endfor %}
 </table>
+
+<button onClick="location.href='/post-write'">글 쓰기</button>
 
 {% endblock %}
