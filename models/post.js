@@ -1,3 +1,4 @@
+const { DATE } = require('sequelize');
 const Sequelize=require('sequelize');
 
 module.exports=class Post extends Sequelize.Model{
@@ -7,8 +8,20 @@ module.exports=class Post extends Sequelize.Model{
                 type:Sequelize.STRING(40),
                 allowNull:false,
             },
+            image:{
+                type:Sequelize.STRING(300),
+                allowNull:true,
+            },
             content:{
                 type:Sequelize.STRING(500),
+                allowNull:false,
+            },
+            writer:{
+                type:Sequelize.STRING(40),
+                allowNull:false,
+            },
+            type:{
+                type:Sequelize.STRING(10),
                 allowNull:false,
             },
             views:{
@@ -16,14 +29,24 @@ module.exports=class Post extends Sequelize.Model{
                 allowNull:false,
                 defaultValue:0,
             },
+            date:{
+                type:Sequelize.DATE,
+                allowNull:false,
+                defaultValue:DATE.now(),
+            },
+            isdelete:{
+                type:Sequelize.BOOLEAN,
+                allowNull:false,
+                defaultValue:false,
+            },
         },{
             sequelize,
             timestamps:true,
             paranoid:true,
             modelName:'Post',
             tableName:'posts',
-            charset:'utf8',
-            collate:'utf8_general_ci',
+			charset:'utf8mb4',
+			collate:'utf8mb4_general_ci',
         })
     }
 }
