@@ -1,8 +1,11 @@
 const express=require('express');
 const Sequelize=require('sequelize');
+const fs=require('fs');
+const multer=require('multer');
 
 const {Board, Page, Post, User}=require('../models');
 const {isLoggedIn, isNotLoggedIn}=require('./middlewares');
+const { render } = require('nunjucks');
 
 const router=express.Router();
 
@@ -14,8 +17,8 @@ router.use((req, res, next)=>{
 router.get('/', async(req, res, next)=>{
 	try{
 		const page=await Page.findAll({});
-        const normalboards=await Board.findAll({where:{type="normal"}});
-        const photoboards=await Board.findAll({where:{type="photo"}});
+        const normalboards=await Board.findAll({where:{type:"normal"}});
+        const photoboards=await Board.findAll({where:{type:"photo"}});
 		res.render('main', {title:`${page.title}`, page, normalboards, photoboards});
 	}catch(error){
 		console.error(error);
@@ -23,10 +26,14 @@ router.get('/', async(req, res, next)=>{
 	}
 });
 
+router.get('/join', isNotLoggedIn, (req, res)=>{
+	res.render('join', {title:'join'});
+});
+
 router.get('/normalboard/:id', async(req, res, next)=>{
 	try{
-		const boardinfo=await Board.findOne({where:{id=req.params.id}});
-		const posts=await Post.findAll({where:{type="normal"}});
+		const boardinfo=await Board.findOne({where:{id:req.params.id}});
+		const posts=await Post.findAll({where:{type:"normal"}});
 		res.render('board-post/normalboard', {title:`일반 게시판 - ${boardinfo.title}`, posts});
 	}catch(error){
 		console.error(error);
@@ -36,7 +43,7 @@ router.get('/normalboard/:id', async(req, res, next)=>{
 
 router.get('/photoboard/:id', async(req, res, next)=>{
 	try{
-		const boardinfo=await Board.findOne({where:{id=req.params.id}});
+		const boardinfo=await Board.findOne({where:{id:req.params.id}});
 		const posts=await Post.findAll({where:{type:"photo"}});
 		res.render('board-post/photoboard', {title:`포토 게시판 - ${boardinfo.title}`, posts});
 	}catch(error){

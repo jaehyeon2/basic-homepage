@@ -32,7 +32,6 @@ module.exports=class Post extends Sequelize.Model{
             date:{
                 type:Sequelize.DATE,
                 allowNull:false,
-                defaultValue:DATE.now(),
             },
             isdelete:{
                 type:Sequelize.BOOLEAN,

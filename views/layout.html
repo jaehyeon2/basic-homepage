@@ -55,12 +55,15 @@
 					</form>
 					{% endif %}
 				</div>
+				<hr/>
+				{% block content %} {% endblock %}
+				<hr/>
 				<footer>
 					Made by&nbsp;
 					<a href="https://www.github.com/jaehyeon2" target="_blank">jaehyeon2</a>
 				</footer>
 			</div>
-			{% block content %} {% endblock %}
+			
 		</div>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script>

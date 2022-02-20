@@ -1,6 +1,6 @@
-const Sequelize= require("sequelize");
+const Sequelize=require("sequelize");
 
-module.exports=class extends Sequelize.Model{
+module.exports=class User extends Sequelize.Model{
     static init(sequelize){
         return super.init({
             email:{
@@ -28,6 +28,7 @@ module.exports=class extends Sequelize.Model{
             tableName:'users',
             charset:'utf8',
             collate:'utf8_general_ci',
-        })
+        });
     }
-}
+
+};

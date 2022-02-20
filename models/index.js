@@ -23,9 +23,9 @@ Page.init(sequelize);
 Board.init(sequelize);
 Post.init(sequelize);
 
-User.associate(db)
-Page.associate(db);
-Board.associate(db);
-Post.associate(db);
+// User.associate(db);
+// Page.associate(db);
+// Board.associate(db);
+// Post.associate(db);
 
 module.exports=db;

@@ -8,9 +8,14 @@ const nunjucks=require('nunjucks');
 const dotenv=require('dotenv');
 
 dotenv.config();
+const indexRouter=require('./routes/index');
+const authRouter=require('./routes/auth');
+const adminRouter=require('./routes/admin');
+const {sequelize}=require('./models');
+const passportConfig=require('./passport');
 
 const app=express();
-passporConfig();
+passportConfig();
 app.set('port', process.env.PORT||8000);
 app.set('view engine', 'html');
 nunjucks.configure('views',{
@@ -38,7 +43,7 @@ const sessionMiddleware=session({
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use('/img', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(cookieParser(process.env.COOKIE_SECRET));
