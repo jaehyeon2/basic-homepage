@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h2>메인 화면 관리</h2>
+<form id="site-form" action="/admin/image" method="post" enctype="multipart/form-data">
+    <div class="site-info">
+        <label id="site-title" for="title">사이트명</label>
+        <input id="title" name="title" type="text" placeholder="사이트명을 입력하세요"/>
+    </div>
+    <div>
+        <label id="image-label" for="video">메인 사진 업로드</label>
+        <input id="image" type="file" accept="image/*" name="image"/>
+        <button id="submit-btn" type="submit" class="btn">업로드 완료</button>
+    </div>
+</form>
+{% endblock %}
