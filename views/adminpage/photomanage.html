@@ -9,7 +9,7 @@
     {% for photoboard in photoboards %}
     <tr>
         <td align="center">{{photoboard.title}}</td>
-        <td align="center"><button onClick="location.href='/admin/photomanage/{{photoboard.id}}'">관리</button></td>
+        <td align="center"><button onClick="location.href='/admin/postmanage/{{photoboard.id}}?type=photo'">관리</button></td>
     </tr>
     {% endfor %}
 </table>

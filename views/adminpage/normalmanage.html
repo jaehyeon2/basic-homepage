@@ -9,7 +9,7 @@
     {% for normalboard in normalboards %}
     <tr>
         <td align="center">{{normalboard.title}}</td>
-        <td align="center"><button onClick="location.href='/admin/normalmanage/{{normalboard.id}}'">관리</button></td>
+        <td align="center"><button onClick="location.href='/admin/postmanage/{{normalboard.id}}?type=normal'">관리</button></td>
     </tr>
     {% endfor %}
 </table>

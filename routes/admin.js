@@ -34,10 +34,13 @@ router.get('/photo', isLoggedIn, isAdmin, async(req, res, next)=>{
 	res.render('adminpage/photomanage', {title:`포토 게시판 관리`}, photoboards);
 });
 
-router.get('/normalmanage/:id', isLoggedIn, isAdmin, async(req, res, next)=>{
+router.get('/postmanage/:id', isLoggedIn, isAdmin, async(req, res, next)=>{
 	const posts=await findAll({where:{boardid:req.params.id}});
+	const type=req.params.type;
+	console.log('type', type);
 	res.render('adminpage/postmanage', {title:`포스트 관리`}, posts);
-})
+});
+
 
 try{
     fs.readdirSync('uploads');
@@ -63,7 +66,7 @@ router.post('/image', isLoggedIn, isAdmin, upload.single('image'), async(req, re
 	try{
         console.log('image', req.body.url);
 		const temp=await Page.findOne({where:{id:1}});
-		console.log('temp', temp.id);
+		//console.log('temp', temp.id);
 		if (!temp){
 			console.log('null');
 			const page=await Page.create({
