@@ -38,6 +38,10 @@ module.exports=class Post extends Sequelize.Model{
                 allowNull:false,
                 defaultValue:false,
             },
+            boardid:{
+                type:Sequelize.INTEGER,
+                allowNull:false,
+            }
         },{
             sequelize,
             timestamps:true,

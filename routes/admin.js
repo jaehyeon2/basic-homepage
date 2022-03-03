@@ -6,6 +6,7 @@ const path=require('path');
 
 const {Board, Page, Post, User}=require('../models');
 const {isLoggedIn, isNotLoggedIn, isAdmin}=require('./middlewares');
+const { findAll } = require('../models/user');
 
 const router=express.Router();
 
@@ -22,6 +23,21 @@ router.get('/', isLoggedIn, isAdmin, async(req, res, next)=>{
 router.get('/main', isLoggedIn, isAdmin, async(req, res, next)=>{
 	res.render('adminpage/sitemanage', {title:`메인 화면 관리`});
 });
+
+router.get('/normal', isLoggedIn, isAdmin, async(req, res, next)=>{
+	const normalboards=await findAll({where:{type:'normal'}});
+	res.render('adminpage/normalmanage', {title:`일반 게시판 관리`}, normalboards);
+});
+
+router.get('/photo', isLoggedIn, isAdmin, async(req, res, next)=>{
+	const photoboards=await findAll({where:{type:'photo'}});
+	res.render('adminpage/photomanage', {title:`포토 게시판 관리`}, photoboards);
+});
+
+router.get('/normalmanage/:id', isLoggedIn, isAdmin, async(req, res, next)=>{
+	const posts=await findAll({where:{boardid:req.params.id}});
+	res.render('adminpage/postmanage', {title:`포스트 관리`}, posts);
+})
 
 try{
     fs.readdirSync('uploads');
