@@ -35,7 +35,7 @@ router.get('/normalboard/:id', async(req, res, next)=>{
 	try{
 		const boardinfo=await Board.findOne({where:{id:req.params.id}});
 		const posts=await Post.findAll({where:{type:"normal"}});
-		res.render('board-post/normalboard', {title:`일반 게시판 - ${boardinfo.title}`, posts});
+		res.render('board-post/normalboard', {title:`일반 게시판 - ${boardinfo.title}`, boardinfo, posts});
 	}catch(error){
 		console.error(error);
 		next(error);
@@ -46,7 +46,18 @@ router.get('/photoboard/:id', async(req, res, next)=>{
 	try{
 		const boardinfo=await Board.findOne({where:{id:req.params.id}});
 		const posts=await Post.findAll({where:{type:"photo"}});
-		res.render('board-post/photoboard', {title:`포토 게시판 - ${boardinfo.title}`, posts});
+		res.render('board-post/photoboard', {title:`포토 게시판 - ${boardinfo.title}`, boardinfo, posts});
+	}catch(error){
+		console.error(error);
+		next(error);
+	}
+});
+
+router.get('/post-write', async(req, res, next)=>{
+	try{
+		const board=await Board.findOne({where:{id:req.query.board}});
+		console.log('title', board);
+		res.render('board-post/post-write', {title:`게시물 작성`, board});
 	}catch(error){
 		console.error(error);
 		next(error);
@@ -70,23 +81,14 @@ const upload=multer({
 			cb(null, path.basename(file.originalname, ext)+new Date().valueOf()+ext);
 		},
 	}),
-	limits:{fileSize:5*1024*1024},
+	limits:{fileSize:500*1024*1024},
 });
 
-router.get('/post-write', async(req, res, next)=>{
-	try{
-		const board=await Board.findOne({where:{id:req.query.board}});
-		res.render('board-post/post-write', {title:`게시물 작성`, board});
-	}catch(error){
-		console.error(error);
-		next(error);
-	}
-});
-
-router.post('/post-write', upload.single('img'), async(req, res, next)=>{
+router.post('/post-write', upload.single('image'), async(req, res, next)=>{
 	try{
 		const today = new Date();   
 	    const time=today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate()+' '+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds();
+		console.log('filename', req.file.filename);
 		const post=await Post.create({
 			title:req.body.name,
 			image:req.file.filename,
