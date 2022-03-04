@@ -30,7 +30,7 @@ module.exports=class Post extends Sequelize.Model{
                 defaultValue:0,
             },
             date:{
-                type:Sequelize.DATE,
+                type:Sequelize.STRING(100),
                 allowNull:false,
             },
             isdelete:{

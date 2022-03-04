@@ -103,7 +103,7 @@ const upload=multer({
 
 router.post('/image', isLoggedIn, isAdmin, upload.single('image'), async(req, res, next)=>{
 	try{
-        console.log('image', req.body.url);
+		console.log('img', req.file.filename);
 		const temp=await Page.findOne({where:{id:1}});
 		//console.log('temp', temp.id);
 		if (!temp){

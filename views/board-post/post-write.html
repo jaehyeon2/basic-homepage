@@ -6,7 +6,7 @@
 <div class="timeline">
     <h4>일반 게시판</h4>
     <h2>{{board.title}}</h2>
-	<form action="/post-write" id="post-form" method="post" name="post">
+	<form action="/post-write-n" id="post-form" method="post" name="post">
 		<input type="hidden" id="boardid" name="boardid" value="{{board.id}}">
         <input type="hidden" id="type" name="type" value="{{board.type}}">
 		<div class="input-group">
@@ -26,7 +26,7 @@
 <div class="timeline">
     <h4>포토 게시판</h4>
     <h2>{{board.title}}</h2>
-	<form action="/post-write" id="post-form" method="post" name="post">
+	<form action="/post-write-p" id="post-form" method="post" name="post" enctype="multipart/form-data">
 		<input type="hidden" id="boardid" name="boardid" value="{{board.id}}">
         <input type="hidden" id="type" name="type" value="{{board.type}}">
 		<div class="input-group">
@@ -34,14 +34,14 @@
 			<input type="text" id="title" name="title" required autofocus>
 		</div>
         <div class="input-group">
-            <label id="post-image" for="image">사진 업로드</label>
-			<input id="post-image" type="file" accept="image/*" name="image"/>
+            <label id="image-label" for="image">사진 업로드</label>
+			<input id="image" type="file" accept="image/*" name="image"/>
         </div>
 		<div class="input-group">
 			<label for="post-content">내용</label><br/>
 			<textarea id="post-content" name="content" placeholder="내용을 입력하세요"></textarea>
 		</div>
-		<button id="join-btn" class="btn" type="submit">
+		<button id="submit-btn" class="btn" type="submit">
 			작성 완료
 		</button>
 	</form>

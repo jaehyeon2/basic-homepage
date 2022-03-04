@@ -2,6 +2,7 @@ const express=require('express');
 const Sequelize=require('sequelize');
 const fs=require('fs');
 const multer=require('multer');
+const path=require('path');
 
 const {Board, Page, Post, User}=require('../models');
 const {isLoggedIn, isNotLoggedIn}=require('./middlewares');
@@ -84,24 +85,41 @@ const upload=multer({
 	limits:{fileSize:500*1024*1024},
 });
 
-router.post('/post-write', upload.single('image'), async(req, res, next)=>{
+router.post('/post-write-n', async(req, res, next)=>{
 	try{
 		const today = new Date();   
 	    const time=today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate()+' '+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds();
-		console.log('filename', req.file.filename);
+		console.log('filename', time);
 		const post=await Post.create({
-			title:req.body.name,
+			title:req.body.title,
+			content:req.body.content,
+			writer:req.user.nick,
+			type:req.body.type,
+			boardid:req.body.boardid,
+			date:time,
+		});
+		res.redirect(`/normalboard/${req.body.boardid}`);
+	}catch(error){
+		console.error(error);
+		next(error);
+	}
+});
+
+router.post('/post-write-p', upload.single('image'), async(req, res, next)=>{
+	try{
+		const today = new Date();   
+	    const time=today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate()+' '+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds();
+		console.log('filename', req.file);
+		const post=await Post.create({
+			title:req.body.title,
 			image:req.file.filename,
 			content:req.body.content,
 			writer:req.user.nick,
 			type:req.body.type,
+			boardid:req.body.boardid,
 			date:time,
 		});
-		if (req.body.type==="normal"){
-			res.redirect(`/normalboard/${req.body.boardid}`);
-		}else{
-			res.redirect(`/photoboard/${req.body.boardid}`);
-		}
+		res.redirect(`/photoboard/${req.body.boardid}`);
 	}catch(error){
 		console.error(error);
 		next(error);
