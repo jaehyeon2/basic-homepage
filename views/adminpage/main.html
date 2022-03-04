@@ -3,6 +3,6 @@
 {% block content %}
 <h2>관리자 페이지</h2>
 <button onClick="location.href='/admin/main'">메인 화면 관리</button>
-<button onClick="location.href='/admin/normal'">일반 게시판 관리</button>
-<button onClick="location.href='/admin/photo'">포토 게시판 관리</button>
+<button onClick="location.href='/admin/board?type=normal'">일반 게시판 관리</button>
+<button onClick="location.href='/admin/board?type=photo'">포토 게시판 관리</button>
 {% endblock %}

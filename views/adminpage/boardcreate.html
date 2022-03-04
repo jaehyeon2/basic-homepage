@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="timeline">
+	<form action="/admin/boardcreate" id="board-form" method="post" name="board">
+		<div class="input-group">
+			<label for="board-title">게시판 명</label><br/>
+			<input type="text" id="board-title" name="title" required autofocus>
+		</div>
+		<div class="input-group">
+			<label for="board-type">게시판 타입</label><br/>
+			<input type="text" id="board-type" name="type" readonly value={{type}}>
+		</div>
+		<button id="join-btn" class="btn" type="submit">
+			게시판 생성
+		</button>
+	</form>
+</div>
+{% endblock %}

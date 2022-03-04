@@ -1,6 +1,6 @@
 const Sequelize=require('sequelize');
 
-module.exports=class Post extends Sequelize.Model{
+module.exports=class Board extends Sequelize.Model{
     static init(sequelize){
         return super.init({
             title:{
@@ -15,10 +15,10 @@ module.exports=class Post extends Sequelize.Model{
             sequelize,
             timestamps:true,
             paranoid:true,
-            modelName:'Post',
-            tableName:'posts',
+            modelName:'Board',
+            tableName:'Board',
             charset:'utf8',
             collate:'utf8_general_ci',
-        })
+        });
     }
-}
+};

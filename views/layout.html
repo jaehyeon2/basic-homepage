@@ -13,23 +13,7 @@
 				<h2><a href="/">{{page.title}}</a></h2>
 				<img src="/img/{{page.mainimage}}" align="center"/>
 			</div>
-			<div class="topmenu">
-				<table>
-					<th>일반 게시판</th>
-					<th>포토 게시판</th>
-					<tr>
-						{% for normalboard in normalboards %}
-						<td><a href="/normalboard/{{normalboard.id}}">{{normalboard.title}}</a></td>
-						{% endfor %}
-					</tr>
-					
-					<tr>
-						{% for photoboard in photoboards %}
-						<td><a href="/photoboard/{{photoboard.id}}">{{normalboard.title}}</a></td>
-						{% endfor %}
-					</tr>
-				</table>
-			</div>
+			
 		</div>
 		<div class="container">
 			<div class="profile-wrap">
