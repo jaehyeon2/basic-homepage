@@ -73,19 +73,15 @@ const upload=multer({
 	limits:{fileSize:5*1024*1024},
 });
 
-// router.get('/post-write', async(req, res, next)=>{
-// 	try{
-// 		const board=await Board.findOne({where:{id=res.params.board}});
-// 		if (board.type="normal"){
-// 			res.render('post-write', {title:`${board.title} - 글쓰기`, board});
-// 		}else{
-// 			res.render('board-post/photopost-write', {title:`${board.title} - 글쓰기`, board});
-// 		}
-// 	}catch(error){
-// 		console.error(error);
-// 		next(error);
-// 	}
-// });
+router.get('/post-write', async(req, res, next)=>{
+	try{
+		const board=await Board.findOne({where:{id:req.query.board}});
+		res.render('board-post/post-write', {title:`게시물 작성`, board});
+	}catch(error){
+		console.error(error);
+		next(error);
+	}
+});
 
 router.post('/post-write', upload.single('img'), async(req, res, next)=>{
 	try{
