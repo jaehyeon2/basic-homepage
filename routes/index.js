@@ -65,6 +65,18 @@ router.get('/post-write', async(req, res, next)=>{
 	}
 });
 
+router.get('/post/:id', async(req, res, next)=>{
+	try{
+		const post=await Post.findOne({where:{id:req.params.id}});
+		const board=await Board.findOne({where:{id:post.boardid}});
+		console.log('post', post);
+		res.render('board-post/post', {title:`${post.title}`, post, board});
+	}catch(error){
+		console.error(error);
+		next(error);
+	}
+});
+
 try{
 	fs.readdirSync('uploads');
 }catch(error){
