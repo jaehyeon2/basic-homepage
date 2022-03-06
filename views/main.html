@@ -1,13 +1,15 @@
 {% extends 'layout.html' %}
 {% block content %}
 <div class="topmenu">
-    <table>
+    <table border="1" width="50%">
         <th>일반 게시판</th>
-        <th>포토 게시판</th>
         {% for normalboard in normalboards %}
         <tr><td><a href="/normalboard/{{normalboard.id}}">{{normalboard.title}}</a></td></tr>
         {% endfor %}
-        
+    </table>
+    <br/>
+    <table border="1" width="50%">
+        <th>포토 게시판</th>
         {% for photoboard in photoboards %}
         <tr><td><a href="/photoboard/{{photoboard.id}}">{{photoboard.title}}</a></td></tr>
         {% endfor %}

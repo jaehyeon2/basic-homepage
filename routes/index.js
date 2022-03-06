@@ -19,6 +19,7 @@ router.get('/', async(req, res, next)=>{
 	try{
 		const page=await Page.findOne({where:{id:1}});
 		console.log('page', page);
+		res.cookie('page', page);
         const normalboards=await Board.findAll({where:{type:"normal"}});
         const photoboards=await Board.findAll({where:{type:"photo"}});
 		res.render('main', {title:`${page.title}`, page, normalboards, photoboards});
