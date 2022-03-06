@@ -36,7 +36,7 @@ router.get('/join', isNotLoggedIn, (req, res)=>{
 router.get('/normalboard/:id', async(req, res, next)=>{
 	try{
 		const boardinfo=await Board.findOne({where:{id:req.params.id}});
-		const posts=await Post.findAll({where:{type:"normal"}});
+		const posts=await Post.findAll({where:{type:"normal", boardid:req.params.id}});
 		res.render('board-post/normalboard', {title:`일반 게시판 - ${boardinfo.title}`, boardinfo, posts});
 	}catch(error){
 		console.error(error);
@@ -47,7 +47,7 @@ router.get('/normalboard/:id', async(req, res, next)=>{
 router.get('/photoboard/:id', async(req, res, next)=>{
 	try{
 		const boardinfo=await Board.findOne({where:{id:req.params.id}});
-		const posts=await Post.findAll({where:{type:"photo"}});
+		const posts=await Post.findAll({where:{type:"photo", boardid:req.params.id}});
 		res.render('board-post/photoboard', {title:`포토 게시판 - ${boardinfo.title}`, boardinfo, posts});
 	}catch(error){
 		console.error(error);

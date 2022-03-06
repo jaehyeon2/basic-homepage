@@ -52,7 +52,7 @@ router.post('/boardcreate', isLoggedIn, isAdmin, async(req, res, next)=>{
 	try{
 		const board_temp=await Board.findOne({where:{title:req.body.title, type:req.body.type}});
 		if (board_temp){
-			res.redirect('/?boardError=이미 존재하는 게시판입니다.');
+			res.redirect('/admin?boardError=이미 존재하는 게시판입니다.');
 		}else{
 			console.log('title', req.body.title);
 			console.log('type', req.body.type);
@@ -60,7 +60,7 @@ router.post('/boardcreate', isLoggedIn, isAdmin, async(req, res, next)=>{
 				title:req.body.title,
 				type:req.body.type,
 			});
-			res.redirect('/');
+			res.redirect('/admin');
 		}
 		
 	}catch(error){
@@ -71,17 +71,46 @@ router.post('/boardcreate', isLoggedIn, isAdmin, async(req, res, next)=>{
 
 router.get('/postmanage/:id', isLoggedIn, isAdmin, async(req, res, next)=>{
 	try{
+		console.log('id', req.params.id);
 		const posts=await Post.findAll({where:{boardid:req.params.id}});
-		const type=req.params.type;
-		const board=await Board.findOne({where:{id:req.params.boardid}});
-		console.log('type', type);
-		res.render('adminpage/postmanage', {title:`포스트 관리`, posts, type, board});
+		const board=await Board.findOne({where:{id:req.params.id}});
+		res.render('adminpage/boardmanage', {title:`게시판 관리`, posts, board});
 	}catch(error){
 		console.error(error);
 		next(error);
 	}
 });
 
+router.get('/deleteboard/:id', isLoggedIn, isAdmin, async(req, res, next)=>{
+    try{
+		const posts=await Post.destroy({
+			where:{boardid:req.params.id},
+		});
+		console.log('posts', posts);
+		console.log('all post delete!');
+        await Board.destroy({
+            where:{id:req.params.id},
+        });
+        console.log('board delete!');
+        res.redirect('/admin');
+    }catch(error){
+        console.error(error);
+        next(error);
+    }
+});
+
+router.get('/deletepost/:id', isLoggedIn, isAdmin, async(req, res, next)=>{
+    try{
+		const posts=await Post.destroy({
+			where:{id:req.params.id},
+		});
+        console.log('post delete!');
+        res.redirect('/admin');
+    }catch(error){
+        console.error(error);
+        next(error);
+    }
+});
 
 try{
     fs.readdirSync('uploads');

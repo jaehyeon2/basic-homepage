@@ -1,9 +1,10 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-{% if type==="normal" %}
-<h3>일반 게시판 목록</h3>
+{% if board.type==="normal" %}
+<h4>일반 게시판</h4>
 <h2>{{board.title}}</h2>
+<h3>게시글 목록</h3>
 <table border="1" width="80%">
     <tr>
         <th width="50%">제목</th>
@@ -16,28 +17,28 @@
         <td align="center">{{post.title}}</td>
         <td align="center">{{post.writer}}</td>
         <td align="center">{{post.date}}</td>
-        <td align="center"><button onClick="location.href='/admin/postmanage/{{board.id}}?type=normal'">관리</button></td>
+        <td align="center"><button onClick="location.href='/admin/deletepost/{{post.id}}'">삭제</button></td>
     </tr>
     {% endfor %}
 </table>
-<button onClick="location.href='/admin/boardcreate?type=normal'">게시판 생성</button>
+<button onClick="location.href='/admin/deleteboard/{{board.id}}'">게시판 삭제</button>
 
 {% else %}
-<h3>포토 게시판 목록</h3>
+<h4>포토 게시판</h4>
 <h2>{{board.title}}</h2>
+<h3>게시글 목록</h3>
 <table border="1" width="50%">
     <tr>
         <th width="80%">제목</th>
-        <th width="20%">작성자</th>
         <th width="20%">삭제</th>
     </tr>
     {% for board in boards %}
     <tr>
         <td align="center">{{board.title}}</td>
-        <td align="center"><button onClick="location.href='/admin/postmanage/{{board.id}}?type=photo'">관리</button></td>
+        <td align="center"><button onClick="location.href='/admin/deletepost/{{post.id}}'">삭제</button></td>
     </tr>
     {% endfor %}
 </table>
-<button onClick="location.href='/admin/boardcreate?type=photo'">게시판 생성</button>
+<button onClick="location.href='/admin/deleteboard/{{board.id}}'">게시판 삭제</button>
 {% endif %}
 {% endblock %}

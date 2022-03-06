@@ -33,11 +33,6 @@ module.exports=class Post extends Sequelize.Model{
                 type:Sequelize.STRING(100),
                 allowNull:false,
             },
-            isdelete:{
-                type:Sequelize.BOOLEAN,
-                allowNull:false,
-                defaultValue:false,
-            },
             boardid:{
                 type:Sequelize.INTEGER,
                 allowNull:false,

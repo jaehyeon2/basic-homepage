@@ -11,7 +11,7 @@
     {% for board in boards %}
     <tr>
         <td align="center">{{board.title}}</td>
-        <td align="center"><button onClick="location.href='/admin/postmanage/{{board.id}}?type=normal'">관리</button></td>
+        <td align="center"><button onClick="location.href='/admin/postmanage/{{board.id}}'">관리</button></td>
     </tr>
     {% endfor %}
 </table>
@@ -27,7 +27,7 @@
     {% for board in boards %}
     <tr>
         <td align="center">{{board.title}}</td>
-        <td align="center"><button onClick="location.href='/admin/postmanage/{{board.id}}?type=photo'">관리</button></td>
+        <td align="center"><button onClick="location.href='/admin/postmanage/{{board.id}}'">관리</button></td>
     </tr>
     {% endfor %}
 </table>
