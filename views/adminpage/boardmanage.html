@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+{% if type==="normal" %}
+<h3>일반 게시판 목록</h3>
+<h2>{{board.title}}</h2>
+<table border="1" width="80%">
+    <tr>
+        <th width="50%">제목</th>
+        <th width="20%">작성자</th>
+        <th width="20%">작성일</th>
+        <th width="10%">삭제</th>
+    </tr>
+    {% for post in posts %}
+    <tr>
+        <td align="center">{{post.title}}</td>
+        <td align="center">{{post.writer}}</td>
+        <td align="center">{{post.date}}</td>
+        <td align="center"><button onClick="location.href='/admin/postmanage/{{board.id}}?type=normal'">관리</button></td>
+    </tr>
+    {% endfor %}
+</table>
+<button onClick="location.href='/admin/boardcreate?type=normal'">게시판 생성</button>
+
+{% else %}
+<h3>포토 게시판 목록</h3>
+<h2>{{board.title}}</h2>
+<table border="1" width="50%">
+    <tr>
+        <th width="80%">제목</th>
+        <th width="20%">작성자</th>
+        <th width="20%">삭제</th>
+    </tr>
+    {% for board in boards %}
+    <tr>
+        <td align="center">{{board.title}}</td>
+        <td align="center"><button onClick="location.href='/admin/postmanage/{{board.id}}?type=photo'">관리</button></td>
+    </tr>
+    {% endfor %}
+</table>
+<button onClick="location.href='/admin/boardcreate?type=photo'">게시판 생성</button>
+{% endif %}
+{% endblock %}

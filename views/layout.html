@@ -62,6 +62,11 @@
 					alert(new URL(location.href).searchParams.get('authError'));
 				}
 			};
+			window.onload = () => {
+				if (new URL(location.href).searchParams.get('boardError')) {
+					alert(new URL(location.href).searchParams.get('boardError'));
+				}
+			};
 		</script>
 		{% block script %}
 		{% endblock %}

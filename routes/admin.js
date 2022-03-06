@@ -27,15 +27,15 @@ router.get('/main', isLoggedIn, isAdmin, async(req, res, next)=>{
 router.get('/board', isLoggedIn, isAdmin, async(req, res, next)=>{
 	try{
 		let boards;
-		let type=req.query.type;
+		const type=req.query.type;
 		if (type==="normal"){
 			boards=await Board.findAll({where:{type:"normal"}});
 			console.log('boards', boards);
-			res.render('adminpage/normalmanage', {title:`일반 게시판 관리`, boards});
+			res.render('adminpage/boardlist', {title:`일반 게시판 목록`, boards, type});
 		}
 		else{
 			boards=await Board.findAll({where:{type:"photo"}});
-			res.render('adminpage/photomanage', {title:`포토 게시판 관리`, boards});
+			res.render('adminpage/boardlist', {title:`포토 게시판 목록`, boards, type});
 		}	
 	}catch(error){
 		console.error(error);
@@ -50,18 +50,19 @@ router.get('/boardcreate', isLoggedIn, isAdmin, async(req, res, next)=>{
 
 router.post('/boardcreate', isLoggedIn, isAdmin, async(req, res, next)=>{
 	try{
-		let board;
-		board=await Board.findOne({where:{title:req.body.title, type:req.body.type}});
-		if (board){
+		const board_temp=await Board.findOne({where:{title:req.body.title, type:req.body.type}});
+		if (board_temp){
 			res.redirect('/?boardError=이미 존재하는 게시판입니다.');
+		}else{
+			console.log('title', req.body.title);
+			console.log('type', req.body.type);
+			board=await Board.create({
+				title:req.body.title,
+				type:req.body.type,
+			});
+			res.redirect('/');
 		}
-		console.log('title', req.body.title);
-		console.log('type', req.body.type);
-		board=await Board.create({
-			title:req.body.title,
-			type:req.body.type,
-		});
-		res.redirect('/');
+		
 	}catch(error){
 		console.error(error);
 		next(error);
@@ -72,8 +73,9 @@ router.get('/postmanage/:id', isLoggedIn, isAdmin, async(req, res, next)=>{
 	try{
 		const posts=await Post.findAll({where:{boardid:req.params.id}});
 		const type=req.params.type;
+		const board=await Board.findOne({where:{id:req.params.boardid}});
 		console.log('type', type);
-		res.render('adminpage/postmanage', {title:`포스트 관리`, posts});
+		res.render('adminpage/postmanage', {title:`포스트 관리`, posts, type, board});
 	}catch(error){
 		console.error(error);
 		next(error);
