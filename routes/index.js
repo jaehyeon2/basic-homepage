@@ -55,7 +55,7 @@ router.get('/photoboard/:id', async(req, res, next)=>{
 	}
 });
 
-router.get('/post-write', async(req, res, next)=>{
+router.get('/post-write', isLoggedIn, async(req, res, next)=>{
 	try{
 		const board=await Board.findOne({where:{id:req.query.board}});
 		console.log('title', board);
@@ -107,7 +107,7 @@ const upload=multer({
 	limits:{fileSize:500*1024*1024},
 });
 
-router.post('/post-write-n', async(req, res, next)=>{
+router.post('/post-write-n', isLoggedIn, async(req, res, next)=>{
 	try{
 		const today = new Date();   
 	    const time=today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate()+' '+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds();
@@ -127,7 +127,7 @@ router.post('/post-write-n', async(req, res, next)=>{
 	}
 });
 
-router.post('/post-write-p', upload.single('image'), async(req, res, next)=>{
+router.post('/post-write-p', isLoggedIn, upload.single('image'), async(req, res, next)=>{
 	try{
 		const today = new Date();   
 	    const time=today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate()+' '+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds();
