@@ -87,6 +87,25 @@ router.get('/post/:id', async(req, res, next)=>{
 	}
 });
 
+router.get('/deletepost/:id', isLoggedIn, async(req, res, next)=>{
+    try{
+		const temp=await Post.findOne({where:{id:req.params.id}});
+		if (req.user.nick===temp.writer){
+			const posts=await Post.destroy({
+				where:{id:req.params.id},
+			});
+			console.log('post delete!');
+			res.redirect('/');
+		}
+		else{
+			res.redirect('/?authError=권한이 없습니다!')
+		}
+    }catch(error){
+        console.error(error);
+        next(error);
+    }
+});
+
 try{
 	fs.readdirSync('uploads');
 }catch(error){

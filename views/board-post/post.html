@@ -9,6 +9,10 @@
 <br/>
 {{post.content}}
 
+<hr/>
+
+<button onClick="location.href='/deletepost/{{[post.id]}}'">게시글 삭제</button>
+
 {% else %}
 <h4>포토 게시판</h4>
 <h1>{{board.title}}</h1>
@@ -19,6 +23,9 @@
 <img src="/img/{{post.image}}"><br/>
 {{post.content}}
 
+<hr/>
+
+<button onClick="location.href='/deletepost/{{[post.id]}}'">게시글 삭제</button>
 {% endif %}
 
 {% endblock %}
