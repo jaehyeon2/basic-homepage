@@ -29,8 +29,14 @@ router.get('/', async(req, res, next)=>{
 	}
 });
 
-router.get('/join', isNotLoggedIn, (req, res)=>{
-	res.render('join', {title:'join'});
+router.get('/join', isNotLoggedIn, async (req, res, next)=>{
+	try{
+		const page=await Page.findOne({where:{id:1}});
+		res.render('join', {title:'join', page});
+	}catch(error){
+		console.error(error);
+		next(error);
+	}
 });
 
 router.get('/normalboard/:id', async(req, res, next)=>{
