@@ -16,7 +16,7 @@ module.exports=class Board extends Sequelize.Model{
             timestamps:true,
             paranoid:true,
             modelName:'Board',
-            tableName:'Board',
+            tableName:'boards',
             charset:'utf8',
             collate:'utf8_general_ci',
         });
