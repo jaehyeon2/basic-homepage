@@ -10,8 +10,8 @@
 	<body>
 		<div class="top">
 			<div class="main">
-				<h2><a href="/">{{page.title}}</a></h2>
-				<img src="/img/{{page.mainimage}}" align="center"/>
+				<h2><a href="/" id="maintitle">{{page.title}}</a></h2>
+				<img id="mainimage" align="center"/>
 			</div>
 			
 		</div>
@@ -50,8 +50,11 @@
 			</div>
 			
 		</div>
+		<button onClick="getCookie('pagei')">zmfflt</button>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		<script>
+			document.getElementById('maintitle').innerHTML=getCookie('paget');
+			document.getElementById('mainimage').src="/img/"+getCookie('pagei');
 			window.onload = () => {
 				if (new URL(location.href).searchParams.get('loginError')) {
 					alert(new URL(location.href).searchParams.get('loginError'));
@@ -67,6 +70,22 @@
 					alert(new URL(location.href).searchParams.get('boardError'));
 				}
 			};
+			function getCookie(key) {
+				var result = null;
+				var cookie = document.cookie.split(';');
+				cookie.some(function (item) {
+					item = item.replace(' ', '');
+			
+					var dic = item.split('=');
+			
+					if (key === dic[0]) {
+						result = dic[1];
+						return true;
+					}
+				});
+				console.log('result', result);
+				return result;
+			}
 		</script>
 		{% block script %}
 		{% endblock %}

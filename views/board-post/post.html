@@ -8,7 +8,8 @@
 {{post.writer}} | {{post.date}} | 조회 {{post.views}}
 <br/>
 {{post.content}}
-
+<hr width="50%" align="left"/>
+<button onClick="location.href='/deletepost/{{[post.id]}}'">게시글 삭제</button>
 
 {% else %}
 <h4>포토 게시판</h4>
@@ -18,8 +19,10 @@
 {{post.writer}} | {{post.date}} | 조회 {{post.views}}
 <br/>
 <img src="/img/{{post.image}}"><br/>
-{{post.content}}
 
+{{post.content}}
+<hr width="50%" align="left"/>
+<button onClick="location.href='/deletepost/{{[post.id]}}'">게시글 삭제</button>
 {% endif %}
 
 {% endblock %}
