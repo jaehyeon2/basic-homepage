@@ -56,20 +56,17 @@
 			document.getElementById('maintitle').innerHTML=getCookie('paget');
 			document.getElementById('mainimage').src="/img/"+getCookie('pagei');
 			window.onload = () => {
-				if (new URL(location.href).searchParams.get('loginError')) {
-					alert(new URL(location.href).searchParams.get('loginError'));
-				}
-			};
-			window.onload = () => {
-				if (new URL(location.href).searchParams.get('authError')) {
-					alert(new URL(location.href).searchParams.get('authError'));
-				}
-			};
-			window.onload = () => {
 				if (new URL(location.href).searchParams.get('boardError')) {
 					alert(new URL(location.href).searchParams.get('boardError'));
 				}
+				else if (new URL(location.href).searchParams.get('loginError')) {
+					alert(new URL(location.href).searchParams.get('loginError'));
+				}
+				else if (new URL(location.href).searchParams.get('authError')) {
+					alert(new URL(location.href).searchParams.get('authError'));
+				}
 			};
+			
 			function getCookie(key) {
 				var result = null;
 				var cookie = document.cookie.split(';');
