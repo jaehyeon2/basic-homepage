@@ -59,7 +59,6 @@ router.get('/photoboard/:id', async(req, res, next)=>{
 router.get('/post-write', isLoggedIn, async(req, res, next)=>{
 	try{
 		const board=await Board.findOne({where:{id:req.query.board}});
-		console.log('title', board);
 		res.render('board-post/post-write', {title:`게시물 작성`, board});
 	}catch(error){
 		console.error(error);
@@ -80,7 +79,6 @@ router.get('/post/:id', async(req, res, next)=>{
 
 		const post=await Post.findOne({where:{id:req.params.id}});
 		const board=await Board.findOne({where:{id:post.boardid}});
-		console.log('post', post);
 		res.render('board-post/post', {title:`${post.title}`, post, board});
 	}catch(error){
 		console.error(error);
@@ -131,7 +129,6 @@ router.post('/post-write-n', isLoggedIn, async(req, res, next)=>{
 	try{
 		const today = new Date();   
 	    const time=today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate()+' '+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds();
-		console.log('filename', time);
 		const post=await Post.create({
 			title:req.body.title,
 			content:req.body.content,
@@ -149,9 +146,8 @@ router.post('/post-write-n', isLoggedIn, async(req, res, next)=>{
 
 router.post('/post-write-p', isLoggedIn, upload.single('image'), async(req, res, next)=>{
 	try{
-		const today = new Date();   
+		const today = new Date(); 
 	    const time=today.getFullYear()+'/'+(today.getMonth()+1)+'/'+today.getDate()+' '+today.getHours()+':'+today.getMinutes()+':'+today.getSeconds();
-		console.log('filename', req.file);
 		const post=await Post.create({
 			title:req.body.title,
 			image:req.file.filename,

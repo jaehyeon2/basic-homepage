@@ -17,7 +17,6 @@ router.use((req, res, next)=>{
 
 router.get('/', isLoggedIn, isAdmin, async(req, res, next)=>{
 	res.render('adminpage/main', {title:`- admin`});
-	//res.render('adminpage/main', {title:`${page.title} - admin`});
 });
 
 router.get('/main', isLoggedIn, isAdmin, async(req, res, next)=>{
@@ -54,8 +53,6 @@ router.post('/boardcreate', isLoggedIn, isAdmin, async(req, res, next)=>{
 		if (board_temp){
 			res.redirect('/admin?boardError=이미 존재하는 게시판입니다.');
 		}else{
-			console.log('title', req.body.title);
-			console.log('type', req.body.type);
 			board=await Board.create({
 				title:req.body.title,
 				type:req.body.type,
@@ -71,7 +68,6 @@ router.post('/boardcreate', isLoggedIn, isAdmin, async(req, res, next)=>{
 
 router.get('/postmanage/:id', isLoggedIn, isAdmin, async(req, res, next)=>{
 	try{
-		console.log('id', req.params.id);
 		const posts=await Post.findAll({where:{boardid:req.params.id}});
 		const board=await Board.findOne({where:{id:req.params.id}});
 		res.render('adminpage/boardmanage', {title:`게시판 관리`, posts, board});
@@ -86,7 +82,6 @@ router.get('/deleteboard/:id', isLoggedIn, isAdmin, async(req, res, next)=>{
 		const posts=await Post.destroy({
 			where:{boardid:req.params.id},
 		});
-		console.log('posts', posts);
 		console.log('all post delete!');
         await Board.destroy({
             where:{id:req.params.id},
