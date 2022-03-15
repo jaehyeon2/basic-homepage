@@ -1,12 +1,11 @@
 const express=require('express');
 const Sequelize=require('sequelize');
 const fs=require('fs');
-const multer=require('multer');
+const multer=require('multer');	
 const path=require('path');
 
 const {Board, Page, Post, User}=require('../models');
 const {isLoggedIn, isNotLoggedIn, isAdmin}=require('./middlewares');
-const { findAll } = require('../models/user');
 
 const router=express.Router();
 
